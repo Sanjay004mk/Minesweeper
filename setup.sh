@@ -7,7 +7,7 @@ fi
 
 sdl=libsdl2-dev
 
-sudo apt-get update; sudo apt-get install "$sdl"
+sudo apt-get update; sudo apt-get install "$sdl";
 
 #failed to install sdl2
 if [ "$?" != "0" ]; then
@@ -17,7 +17,7 @@ fi
 #build project using premake5 if available 
 #else use makefile, if it exists
 if [ -x "$(command -v premake5)" ]; then
-   premake5 gmake2
+    premake5 gmake2
 fi
 
 if [ -f "Makefile" ]; then
