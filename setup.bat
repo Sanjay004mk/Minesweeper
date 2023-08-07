@@ -1,3 +1,3 @@
-winget install premake5
-premake5 vs2022
+./premake5.exe vs2022
+echo "Build Project Using Visual Studio."
 pause

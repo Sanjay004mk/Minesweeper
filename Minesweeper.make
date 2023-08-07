@@ -62,7 +62,9 @@ endif
 GENERATED :=
 OBJECTS :=
 
+GENERATED += $(OBJDIR)/app.o
 GENERATED += $(OBJDIR)/main.o
+OBJECTS += $(OBJDIR)/app.o
 OBJECTS += $(OBJDIR)/main.o
 
 # Rules
@@ -127,6 +129,9 @@ endif
 # File Rules
 # #############################################
 
+$(OBJDIR)/app.o: src/app.c
+	@echo "$(notdir $<)"
+	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
 $(OBJDIR)/main.o: src/main.c
 	@echo "$(notdir $<)"
 	$(SILENT) $(CC) $(ALL_CFLAGS) $(FORCE_INCLUDE) -o "$@" -MF "$(@:%.o=%.d)" -c "$<"
