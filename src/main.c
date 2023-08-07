@@ -1,10 +1,24 @@
 #define SDL_MAIN_HANDLED
 #include <SDL.h>
+#define STB_IMAGE_IMPLEMENTATION
+#include "stb_image.h"
 
 #include <stdio.h>
 
 SDL_Window* window;
 SDL_Renderer* renderer;
+SDL_Texture* texture;
+uint32_t pixels[] = 
+{
+	0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000,
+	0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000,
+	0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000,
+	0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000,
+	0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000,
+	0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000, 0xffff0000,
+};
+
+int w = 6, h = 6;
 
 void initSDL()
 {
@@ -39,6 +53,12 @@ void initSDL()
 			exit(1);
 		}
 	}
+
+	{
+		SDL_Surface* s = SDL_CreateRGBSurfaceWithFormatFrom(pixels, w, h, 8, w * 4, SDL_PIXELFORMAT_ABGR8888);
+
+		texture = SDL_CreateTextureFromSurface(renderer, s);
+	}
 }
 
 void PollEvents()
@@ -51,6 +71,12 @@ void PollEvents()
 		{
 		case SDL_QUIT:
 			exit(0);
+			break;
+
+		case SDL_MOUSEBUTTONDOWN:
+			int mx, my;
+			uint32_t ms = SDL_GetMouseState(&mx, &my);
+			printf("mouse state: %d\tx: %d\ty: %d\n", ms, mx, my);
 			break;
 
 		default:
@@ -68,6 +94,16 @@ int main(int argc, char** argv)
 	{
 		SDL_SetRenderDrawColor(renderer, 255, 0, 255, 255);
 		SDL_RenderClear(renderer);
+
+		{
+			SDL_Rect dest;
+
+			dest.x = 10;
+			dest.y = 10;
+			SDL_QueryTexture(texture, NULL, NULL, &dest.w, &dest.h);
+
+			SDL_RenderCopy(renderer, texture, NULL, &dest);
+		}
 
 		SDL_RenderPresent(renderer);
 
