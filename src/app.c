@@ -21,7 +21,7 @@ static Application s_App = {
 
 static uint64_t now, last;
 
-extern Application* mns_Application = NULL;
+Application* mns_Application = NULL;
 
 int mns_ShouldRun()
 {
@@ -232,6 +232,7 @@ void mns_DrawTextureWithBounds2i(Texture* texture, int x, int y, int w, int h)
 void mns_DrawTextureWithBounds2f(Texture* texture, float x, float y, float w, float h)
 {
 	Point2f p2f1 = { x, y }, p2f2 = { w, h };
-	Point2i p2i1 = mns_WorldSpaceToScreenSpace(&p2f1), p2i2 = mns_WorldSpaceToScreenSpace(&p2f2);
+	Point2i p2i1 = mns_WorldSpaceToScreenSpace(&p2f1);
+	Point2i p2i2 = mns_WorldSpaceToScreenSpace(&p2f2);
 	mns_DrawTextureWithBounds2i(texture, p2i1.x, p2i1.y, p2i2.x, p2i2.y);
 }

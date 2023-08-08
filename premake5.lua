@@ -21,7 +21,7 @@ workspace "Minesweeper"
         systemversion "latest"
 
         filter "system:linux"
-            links "SDL2"
+            links { "SDL2", "m" }
 
         filter "system:windows"
             links "%{wks.location}/SDL/Win64/SDL2.lib"
