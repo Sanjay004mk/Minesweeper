@@ -12,7 +12,8 @@
 #define DEF_WIDTH 600
 #define DEF_HEIGHT 600
 
-static Application s_App = {
+static Application s_App = 
+{
 	NULL, NULL,
 	"Minesweeper",
 	DEF_WIDTH, DEF_HEIGHT, 1,
@@ -225,14 +226,14 @@ void mns_DrawTextureWithPos2f(Texture* texture, float x, float y)
 
 void mns_DrawTextureWithBounds2i(Texture* texture, int x, int y, int w, int h)
 {
-	SDL_Rect rect = { x, y, w - x, h - y };
+	SDL_Rect rect = { x, y, w, h };
 	SDL_RenderCopy(s_App.renderer, texture->texture, NULL, &rect);
 }
 
 void mns_DrawTextureWithBounds2f(Texture* texture, float x, float y, float w, float h)
 {
-	Point2f p2f1 = { x, y }, p2f2 = { w, h };
+	Point2f p2f1 = { x, y }, p2f2 = { w + x, h + y };
 	Point2i p2i1 = mns_WorldSpaceToScreenSpace(&p2f1);
 	Point2i p2i2 = mns_WorldSpaceToScreenSpace(&p2f2);
-	mns_DrawTextureWithBounds2i(texture, p2i1.x, p2i1.y, p2i2.x, p2i2.y);
+	mns_DrawTextureWithBounds2i(texture, p2i1.x, p2i1.y, p2i2.x - p2i1.x, p2i2.y - p2i1.y);
 }
