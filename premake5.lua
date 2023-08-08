@@ -25,7 +25,6 @@ workspace "Minesweeper"
 
         filter "system:windows"
             links "%{wks.location}/SDL/Win64/SDL2.lib"
-            postbuildcommands "copy %{wks.location}SDL\\Win64\\SDL2.dll %{wks.location}bin\\"
 
         filter "configurations:Debug"
             symbols "on"
