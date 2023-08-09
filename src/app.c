@@ -93,7 +93,7 @@ void mns_InitFrame()
 	SDL_GetWindowSize(s_App.window, &s_App.width, &s_App.height);
 	s_App.aspectRatio = (float)s_App.width / (float)s_App.height;
 
-	SDL_SetRenderDrawColor(s_App.renderer, 55, 55, 55, 255);
+	SDL_SetRenderDrawColor(s_App.renderer, 0, 0xcc, 0xff, 255);
 	SDL_RenderClear(s_App.renderer);
 }
 
@@ -120,7 +120,7 @@ void mns_PollEvents()
 		{
 			int mx, my;
 			uint32_t ms = SDL_GetMouseState(&mx, &my);
-			printf("mouse state: %d\tx: %d\ty: %d\n", ms, mx, my);
+			mns_GameOnClick(mx, my, ms);
 			break;
 		}
 
